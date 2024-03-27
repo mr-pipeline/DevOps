@@ -2,7 +2,8 @@
 
 ansible-playbook playbook.yml
 
-<details><summary><b>Ex. 01</b></summary>
+<details><b>Ex. 01</b>
+```
 ---
 - hosts: all
   tasks:
@@ -16,6 +17,7 @@ ansible-playbook playbook.yml
   - name: Start Apache and configure it to run at boot.
     command: service httpd start
   - command: chkconfig httpd on
+```
 </details>
 
 <details><summary><b>Ex. 02</b></summary>
