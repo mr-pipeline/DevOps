@@ -92,3 +92,41 @@ ansible multi -m file -a "dest=/tmp/test mode=644 state=directory"
 ansible multi -m file -a "dest=/tmp/test state=absent"
 ```
 
+### Check log files
+
+1. Operations that continuously monitor a file, like tail -f, won’t work via
+Ansible, because Ansible only displays output after the operation is complete,
+and you won’t be able to send the Control-C command to stop following the
+file.
+2. If you redirect and filter output from a command run via Ansible, you need
+to use the shell module instead of Ansible’s default command module (add -m
+shell to your commands).
+
+```
+ansible multi -b -a "tail /var/log/messages"
+```
+
+* if you want to filter the messages log with something like
+grep, you can’t use Ansible’s default
+module, but instead, shell:
+command
+
+```
+ansible multi -b -m shell -a "tail /var/log/messages | \
+grep ansible-command | wc -l"
+```
+
+### Manage cron jobs
+
+If you want to run a shell script on all the servers *every day at 4 a.m.*, add the cron job with:
+```
+ansible multi -b -m cron -a "name='daily-cron-all-servers' \
+hour=4 job='/path/to/daily-script.sh'"
+```
+Ansible will assume `*` for all values you don’t specify (valid values are day, hour, minute, month, and weekday).
+
+You can also set the user the job will run under via `user=[user]`, and create a backup of the current crontab by passing `backup=yes`.
+```
+$ ansible multi -b -m cron -a "name='daily-cron-all-servers' \
+state=absent"
+```
