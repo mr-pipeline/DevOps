@@ -27,17 +27,22 @@ sudo apt install ansible
 ```
 ansible --version
 ```
+<details><summary><b>for centos</b></summary>
 
---centos:
 sudo yum install epel-release
 sudo yum update
 sudo yum install ansible
 
-https://centos.pkgs.org/7/centos-extras-x86_64/sshpass-1.06-2.el7.x86_64.rpm.html
+* https://centos.pkgs.org/7/centos-extras-x86_64/sshpass-1.06-2.el7.x86_64.rpm.html
+```
 wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/sshpass-1.06-2.el7.x86_64.rpm
+```
+```
 sudo yum localinstall sshpass-1.06-2.el7.x86_64.rpm
--------
-
+```
+-----
+</details>
+  
 ```
 sudo nano /etc/hosts
   ip  node1
