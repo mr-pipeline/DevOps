@@ -2,7 +2,8 @@
 
 ansible-playbook playbook.yml
 
-<details><b>Ex. 01</b>
+<details><summary><b>Ex. 01</b></summary>
+
 ```
 ---
 - hosts: all
@@ -21,6 +22,8 @@ ansible-playbook playbook.yml
 </details>
 
 <details><summary><b>Ex. 02</b></summary>
+
+```
 ---
 - hosts: all
   become: yes
@@ -46,5 +49,6 @@ ansible-playbook playbook.yml
           dest: /etc/httpd/conf/httpd-vhosts.conf
     - name: Make sure Apache is started now and at boot.
       service: name=httpd state=started enabled=yes
+```
 </details>
 
