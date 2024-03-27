@@ -1,4 +1,4 @@
-# Ansible Ad-hoc Commands
+# Ansible Ad-Hoc Commands
 Some Usefull Commands:
 ```
 ansible all -a "hostname"
