@@ -54,7 +54,7 @@ sudo apt install containernetworking-plugins
 sudo nano /etc/crio/crio.conf
 
 On the "[crio.network]" section, uncomment the "network_dir" and "plugin_dirs" option. Also, be sure to add the CNI plugin directory "/usr/lib/cni/" to the "plugin_dirs" option.
-
+```
 # The crio.network table containers settings pertaining to the management of
 # CNI plugins.
 [crio.network]
@@ -71,6 +71,7 @@ plugin_dirs = [
         "/opt/cni/bin/",
         "/usr/lib/cni/",
 ]
+```
 
 rm -f /etc/cni/net.d/100-crio-bridge.conf
 sudo curl -fsSLo /etc/cni/net.d/11-crio-ipv4-bridge.conf https://raw.githubusercontent.com/cri-o/cri-o/main/contrib/cni/11-crio-ipv4-bridge.conf
@@ -86,3 +87,5 @@ crictl completion > /etc/bash_completion.d/crictl
 source ~/.bashrc
 crictl TAB
 
+sudo crictl pull nginx
+sudo crictl images
