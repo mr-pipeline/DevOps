@@ -186,6 +186,8 @@ By default, your cluster will not schedule Pods on the control plane nodes for s
 
 kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 
+kubectl taint node mymasternode node-role.kubernetes.io/master:NoSchedule-
+
 (Optional) Controlling your cluster from machines other than the control-plane node
 
 In order to get a kubectl on some other computer (e.g. laptop) to talk to your cluster, you need to copy the administrator kubeconfig file from your control-plane node to your workstation like this:
