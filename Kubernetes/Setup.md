@@ -87,5 +87,20 @@ crictl completion > /etc/bash_completion.d/crictl
 source ~/.bashrc
 crictl TAB
 
+
+Deploying Flannel with kubectl:
+```
+kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+```
+If you use custom podCIDR (not 10.244.0.0/16) you first need to download the above manifest and modify the network to match your one.
+Deploying Flannel with helm
+```
+# Needs manual creation of namespace to avoid helm error
+kubectl create ns kube-flannel
+kubectl label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
+
+helm repo add flannel https://flannel-io.github.io/flannel/
+helm install flannel --set podCidr="10.244.0.0/16" --namespace kube-flannel flannel/flannel
+```
 sudo crictl pull nginx
 sudo crictl images
