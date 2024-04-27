@@ -87,6 +87,14 @@ crictl completion > /etc/bash_completion.d/crictl
 source ~/.bashrc
 crictl TAB
 
+sudo crictl pull nginx
+sudo crictl images
+
+
+Deploying flannel:
+Flannel can be added to any existing Kubernetes cluster though it's simplest to add flannel before any pods using the pod network have been started.
+
+For Kubernetes v1.17+
 
 Deploying Flannel with kubectl:
 ```
@@ -102,5 +110,39 @@ kubectl label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=pri
 helm repo add flannel https://flannel-io.github.io/flannel/
 helm install flannel --set podCidr="10.244.0.0/16" --namespace kube-flannel flannel/flannel
 ```
-sudo crictl pull nginx
-sudo crictl images
+
+Flannel uses portmap as CNI network plugin by default; when deploying Flannel ensure that the CNI Network plugins are installed in /opt/cni/bin the latest binaries can be downloaded with the following commands:
+```
+mkdir -p /opt/cni/bin
+curl -O -L https://github.com/containernetworking/plugins/releases/download/v1.2.0/cni-plugins-linux-amd64-v1.2.0.tgz
+tar -C /opt/cni/bin -xzf cni-plugins-linux-amd64-v1.2.0.tgz
+```
+
+
+Install kubectl on Linux:
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+kubectl version --client
+
+Install using native package management :
+```
+sudo apt-get update
+# apt-transport-https may be a dummy package; if so, you can skip that package
+sudo apt-get install -y apt-transport-https ca-certificates curl
+```
+```
+# If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+# sudo mkdir -p -m 755 /etc/apt/keyrings
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+```
+Note: In releases older than Debian 12 and Ubuntu 22.04, folder /etc/apt/keyrings does not exist by default, and it should be created before the curl command.
+```
+# This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+```
