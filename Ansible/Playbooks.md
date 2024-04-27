@@ -34,7 +34,9 @@ ansible-playbook playbook.yml
         name:
           - httpd
           - httpd-devel
-        state: present  //We tell yum to make sure the packages are installed with state: present, but we could also use state: latest to ensure the latest version is installed, or state: absent to make sure the packages are not installed.
+        state: present  //We tell yum to make sure the packages are installed with state: present, but we could also use state: latest to ensure the latest version is installed, or state: absent to make sure
+      when: ansible_distribution == "Ubuntu"
+the packages are not installed.
     - name: Copy configuration files.
       copy:
         src: "{{ item.src }}"
