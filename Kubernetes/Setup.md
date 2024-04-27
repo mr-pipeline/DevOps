@@ -146,3 +146,17 @@ Note: In releases older than Debian 12 and Ubuntu 22.04, folder /etc/apt/keyring
 # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 ```
+sudo apt-get update
+sudo apt-get install -y kubectl
+
+kubectl cluster-info
+kubectl cluster-info dump
+
+echo 'source <(kubectl completion bash)' >>~/.bashrc
+
+echo 'alias k=kubectl' >>~/.bashrc
+echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
+source ~/.bashrc
+
+
+Creating a cluster with kubeadm:
