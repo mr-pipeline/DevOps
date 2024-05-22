@@ -19,3 +19,7 @@ $cfg['Servers'][$i]['user'] = '**your-root-username**';
 $cfg['Servers'][$i]['password'] = '**root-password**';
 
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
+
+/* User for advanced features */
+$cfg['Servers'][$i]['controluser'] = 'pma';
+$cfg['Servers'][$i]['controlpass'] = '';
