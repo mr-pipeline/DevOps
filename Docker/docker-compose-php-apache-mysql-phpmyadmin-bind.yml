@@ -58,7 +58,7 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: password
-      PMA_USER: emperor
+      PMA_USER: user
       PMA_PASSWORD: password
     ports:
       - "8090:80"
